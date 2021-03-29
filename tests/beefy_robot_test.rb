@@ -41,50 +41,50 @@ class BeefyRobotTest < Minitest::Test
     end
   end
 
-  def test_cannot_set_invalid_coordiates
-    skip
-    # raise error if x or y nor Integer
-  end
-
-  def test_can_turn_move_forward
+  def test_can_move_forward
     beefy_robot.place(0, 0, "NORTH")
     assert beefy_robot.move
     assert_equal beefy_robot.report, [0,1,"NORTH"]
 
-    beefy_robot.place(0, 0, "NORTH")
+    beefy_robot.place(0, 0, "EAST")
     assert beefy_robot.move
-    assert beefy_robot.move
-    assert beefy_robot.move
-    assert_equal beefy_robot.report, [0,3,"NORTH"]
+    assert_equal beefy_robot.report, [1,0,"EAST"]
 
-    beefy_robot.place(4, 1, "SOUTH")
+    beefy_robot.place(1, 1, "SOUTH")
     assert beefy_robot.move
-    assert beefy_robot.right
-    assert_equal beefy_robot.report, [4,0,"WEST"]
+    assert_equal beefy_robot.report, [1,0,"SOUTH"]
 
-    beefy_robot.place(4, 1, "WEST")
+    beefy_robot.place(1, 1, "WEST")
     assert beefy_robot.move
-    assert beefy_robot.right
-    assert beefy_robot.move
-    assert beefy_robot.left
-    assert beefy_robot.move
-    assert_equal beefy_robot.report, [2,2,"WEST"]
-
-    beefy_robot.place(1, 1, "EAST")
-    assert beefy_robot.move
-    assert beefy_robot.move
-    assert beefy_robot.move
-    assert_equal beefy_robot.report, [4,1,"EAST"]
+    assert_equal beefy_robot.report, [0,1,"WEST"]
   end
 
   def test_cannot_move_off_board
-    beefy_robot.place(1, 4, "NORTH")
-    assert beefy_robot.move
+    assert beefy_robot.place(1, 4, "NORTH")
+    refute beefy_robot.move
     refute beefy_robot.move
   end
 
   def test_cannot_place_off_board
-    refute beefy_robot.place(1, 5, "NORTH")
+    refute beefy_robot.place(5, 4, "NORTH")
+  end
+
+  def test_continue_to_next_valid_position
+    assert beefy_robot.place(4,4,"NORTH")
+    refute beefy_robot.move
+    assert beefy_robot.place(4,4,"NORTH")
+  end
+
+  def test_can_move_back_onto_table
+    assert beefy_robot.place(0, 0, "SOUTH")
+    refute beefy_robot.move
+    refute beefy_robot.left
+    refute beefy_robot.move
+    assert_equal beefy_robot.report, "Beefy Robot is not on the Board"
+    refute beefy_robot.move
+    refute beefy_robot.left
+    assert beefy_robot.move
+    assert_equal beefy_robot.report, [2, 0, "NORTH"]
   end
 
   def test_can_turn_right
@@ -118,14 +118,7 @@ class BeefyRobotTest < Minitest::Test
 
   def test_can_report_invalid_position
     beefy_robot.place(6,6,"NORTH")
-    assert_equal beefy_robot.report, "Beefy is not on the Board"
-  end
-
-  def test_continue_to_next_valid_position
-    skip
-    # assert beefy_robot.place(4,4,"NORTH")
-    # assert beefy_robot.move
-    # assert_equal beefy_robot.report, [0,1,"NORTH"]
+    assert_equal beefy_robot.report, "Beefy Robot is not on the Board"
   end
 
   def test_example_placement_one

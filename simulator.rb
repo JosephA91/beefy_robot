@@ -7,40 +7,29 @@ class Simulator
     @beefy_robot = BeefyRobot.new
   end
 
-  # Check if command is valid
-  # If true pass input to execute
-  # NOT VALID IF: simulator.evaluate("REPORT  0,0,NORTH")
-
   def evaluate(input)
     commands = ["PLACE", "MOVE", "RIGHT", "LEFT", "REPORT"]
-    str = input.delete("\r|\n")
-    command_array = str.split(" ")
+    command = input.upcase.delete("\r|\n")
+    command_split = command.split(" ")
 
-    if commands.include?( command_array[0])
-      command = command_array[0].downcase.to_sym
-      if command_array[0].eql?(commands[0])
-        command_args = command_array[1].split(/,/)
-        @x = command_args[0].to_i
-        @y = command_args[1].to_i
-        @direction = command_args[2]
+    case command_split[0]
+    when "PLACE"
+      if command_split[0].eql?(commands[0]) && command_split.count > 1
+        command_args = command_split[1].split(/,/).reject(&:empty?)
+        if command_args.count > 2
+          @x = command_args[0].to_i
+          @y = command_args[1].to_i
+          @direction = command_args[2]
+          beefy_robot.place(@x, @y, @direction)
+        end
       end
-      self.execute(command)
-    else
-      raise ArgumentError, 'Invalid command'
-    end
-  end
-
-  def execute(command)
-    case command
-    when :place
-      beefy_robot.place(@x, @y, @direction)
-    when :move
+    when "MOVE"
       beefy_robot.move
-    when :right
+    when "RIGHT"
       beefy_robot.right
-    when :left
+    when "LEFT"
       beefy_robot.left
-    when :report
+    when "REPORT"
       beefy_robot.report
     end
   end
