@@ -75,11 +75,3 @@ class BeefyRobot
     x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT
   end
 end
-
-# beefy_robot = BeefyRobot.new
-# beefy_robot.place(1,2,"EAST")
-# beefy_robot.move
-# beefy_robot.move
-# beefy_robot.left
-# beefy_robot.move
-# print beefy_robot.report

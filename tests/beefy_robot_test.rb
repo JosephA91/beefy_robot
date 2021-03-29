@@ -1,6 +1,5 @@
 require 'minitest/autorun'
-require_relative 'beefy_robot'
-require_relative 'simulator'
+require '../beefy_robot'
 
 class BeefyRobotTest < Minitest::Test
   attr_reader :beefy_robot
@@ -42,10 +41,10 @@ class BeefyRobotTest < Minitest::Test
     end
   end
 
-  # def test_cannot_set_invalid_coordiates
-  #   skip
-  #   # raise error if x or y nor Integer
-  # end
+  def test_cannot_set_invalid_coordiates
+    skip
+    # raise error if x or y nor Integer
+  end
 
   def test_can_turn_move_forward
     beefy_robot.place(0, 0, "NORTH")
@@ -122,8 +121,11 @@ class BeefyRobotTest < Minitest::Test
     assert_equal beefy_robot.report, "Beefy is not on the Board"
   end
 
-  def test_continue_next_valid_position
-    beefy_robot.place(5,5,"NORTH")
+  def test_continue_to_next_valid_position
+    skip
+    # assert beefy_robot.place(4,4,"NORTH")
+    # assert beefy_robot.move
+    # assert_equal beefy_robot.report, [0,1,"NORTH"]
   end
 
   def test_example_placement_one

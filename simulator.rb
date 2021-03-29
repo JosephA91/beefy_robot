@@ -7,7 +7,11 @@ class Simulator
 
   # Check if command is valid
   def evaluate(input)
-    puts input
+
+    outcome = true
+    if outcome
+      self.execute(input)
+    end
   end
 
   # execute command
@@ -29,14 +33,3 @@ class Simulator
     end
   end
 end
-
-simulator = Simulator.new
-puts simulator.evaluate("PLACE 0,0,NORTH")
-simulator.execute(:place)
-simulator.execute(:move)
-simulator.execute(:left)
-simulator.execute(:move)
-simulator.execute(:move)
-simulator.execute(:right)
-simulator.execute(:move)
-print simulator.execute(:report)
