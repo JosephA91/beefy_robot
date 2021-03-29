@@ -6,11 +6,14 @@ class BeefyRobot
     @direction = ["NORTH", "EAST", "SOUTH", "WEST"]
   end
 
+  # TODO: MUST PLACE ROBOT FIRST
+  # DISCARD ALL COMMANDS THAT DONT == PLACE
+  # Fix issue if off table skip
+
   def place(x, y, face)
     @face = face
     @x = x
     @y = y
-
     # raise error if x or y nor Integer
 
     if self.valid_position?(@x, @y)
@@ -64,8 +67,6 @@ class BeefyRobot
   def report
     if self.valid_position?(@x, @y)
       [@x,@y,direction]
-    else
-      return "Beefy is not on the Board"
     end
   end
 
