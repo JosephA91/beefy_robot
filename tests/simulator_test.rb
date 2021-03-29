@@ -10,6 +10,8 @@ class SimulatorTest < Minitest::Test
     @simulator = Simulator.new
   end
 
+  # TODO: Further test invalid inputs and raise exceptions
+
   def test_can_evaluate_valid_input
     skip
     assert simulator.evaluate("PLACE 0,0,NORTH")
@@ -81,7 +83,7 @@ class SimulatorTest < Minitest::Test
     beefy_robot.move
     simulator.evaluate("PLACE 0,0,NORTH")
     simulator.evaluate("MOVE")
-    assert_equal beefy_robot.report, simulator.evaluate("REPORT") #[0,1,"NORTH"]
+    assert_equal beefy_robot.report, simulator.evaluate("REPORT")
   end
 
   def test_beefy_robot_and_simulator_comparison_two
@@ -90,7 +92,7 @@ class SimulatorTest < Minitest::Test
     beefy_robot.left
     simulator.evaluate("PLACE 0,0,NORTH")
     simulator.evaluate("LEFT")
-    assert_equal beefy_robot.report, simulator.evaluate("REPORT") #[0,0,"WEST"]
+    assert_equal beefy_robot.report, simulator.evaluate("REPORT")
   end
 
   def test_beefy_robot_and_simulator_comparison_three
@@ -105,6 +107,6 @@ class SimulatorTest < Minitest::Test
     simulator.evaluate("MOVE")
     simulator.evaluate("LEFT")
     simulator.evaluate("MOVE")
-    assert_equal beefy_robot.report, simulator.evaluate("REPORT") #[3,3,"NORTH"]
+    assert_equal beefy_robot.report, simulator.evaluate("REPORT")
   end
 end
