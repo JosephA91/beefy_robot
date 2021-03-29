@@ -26,7 +26,6 @@ class Simulator
           else
             "INVALID COMMAND"
           end
-
         else
           "INVALID COMMAND"
         end
