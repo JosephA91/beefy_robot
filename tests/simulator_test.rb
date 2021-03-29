@@ -11,20 +11,26 @@ class SimulatorTest < Minitest::Test
   end
 
   def test_can_evaluate_valid_input
-    assert simulator.evaluate("PLACE 0,0,NORTH")
-    assert simulator.evaluate("MOVE")
-    assert simulator.evaluate("RIGHT")
-    assert simulator.evaluate("LEFT")
-    assert simulator.evaluate("REPORT")
+    simulator.evaluate("PLACE 0,0,NORTH")
+    assert_equal simulator.evaluate("REPORT"), [0,0,"NORTH"]
+
+    simulator.evaluate("MOVE")
+    assert_equal simulator.evaluate("REPORT"), [0,1,"NORTH"]
+
+    simulator.evaluate("RIGHT")
+    assert_equal simulator.evaluate("REPORT"), [0,1,"EAST"]
+
+    simulator.evaluate("LEFT")
+    assert_equal simulator.evaluate("REPORT"), [0,1,"NORTH"]
   end
 
   def test_cannot_evaluate_invalid_input
-    refute simulator.evaluate("PLACE")
-    refute simulator.evaluate("PLACE 0,0")
-    refute simulator.evaluate("PLACE ,,NORTH")
-    refute simulator.evaluate("MOOcVEE")
-    refute simulator.evaluate("")
-    refute simulator.evaluate(" ")
+    assert_equal simulator.evaluate("PLACE"), "INVALID COMMAND"
+    assert_equal simulator.evaluate("PLACE 0,0"), "INVALID COMMAND"
+    assert_equal simulator.evaluate("PLACE ,,NORTH"), "INVALID COMMAND"
+    assert_equal simulator.evaluate("MOOcVEE"), "INVALID COMMAND"
+    assert_equal simulator.evaluate(""), "INVALID COMMAND"
+    assert_equal simulator.evaluate(" "), "INVALID COMMAND"
   end
 
   def test_can_execute_place_command

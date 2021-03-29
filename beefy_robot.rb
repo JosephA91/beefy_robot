@@ -6,15 +6,12 @@ class BeefyRobot
     @direction = ["NORTH", "EAST", "SOUTH", "WEST"]
   end
 
-  # TODO: MUST PLACE ROBOT FIRST
-  # DISCARD ALL COMMANDS THAT DONT == PLACE
-
   def place(x, y, face)
     @face = face
     @x = x
     @y = y
+    @position = { x: @x, y: @y, face: @face }
     self.set_direction
-    self.valid_position?(@x, @y) ? true : false
   end
 
   def set_direction
@@ -27,13 +24,11 @@ class BeefyRobot
   end
 
   def right
-    @direction.rotate!(1)
-    self.valid_position?(@x, @y) ? true : false
+    @direction.rotate!(1) unless @position.nil?
   end
 
   def left
-    @direction.rotate!(-1)
-    self.valid_position?(@x, @y) ? true : false
+    @direction.rotate!(-1) unless @position.nil?
   end
 
   def move
@@ -46,8 +41,7 @@ class BeefyRobot
       @y += -1
     when "WEST"
       @x += -1
-    end
-    self.valid_position?(@x, @y) ? true : false
+    end unless @position.nil?
   end
 
   def report
@@ -55,7 +49,7 @@ class BeefyRobot
       [@x,@y,direction]
     else
       "Beefy Robot is not on the Board"
-    end
+    end unless @position.nil?
   end
 
   private

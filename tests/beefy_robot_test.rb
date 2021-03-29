@@ -9,7 +9,8 @@ class BeefyRobotTest < Minitest::Test
   end
 
   def test_can_place_robot_corrctly
-    assert beefy_robot.place(0,0,"NORTH")
+    beefy_robot.place(0,0,"NORTH")
+    assert_equal beefy_robot.report, [0,0,"NORTH"]
   end
 
   def test_can_set_valid_direction
@@ -43,47 +44,51 @@ class BeefyRobotTest < Minitest::Test
 
   def test_can_move_forward
     beefy_robot.place(0, 0, "NORTH")
-    assert beefy_robot.move
+    beefy_robot.move
     assert_equal beefy_robot.report, [0,1,"NORTH"]
 
     beefy_robot.place(0, 0, "EAST")
-    assert beefy_robot.move
+    beefy_robot.move
     assert_equal beefy_robot.report, [1,0,"EAST"]
 
     beefy_robot.place(1, 1, "SOUTH")
-    assert beefy_robot.move
+    beefy_robot.move
     assert_equal beefy_robot.report, [1,0,"SOUTH"]
 
     beefy_robot.place(1, 1, "WEST")
-    assert beefy_robot.move
+    beefy_robot.move
     assert_equal beefy_robot.report, [0,1,"WEST"]
   end
 
   def test_cannot_move_off_board
-    assert beefy_robot.place(1, 4, "NORTH")
-    refute beefy_robot.move
-    refute beefy_robot.move
+    beefy_robot.place(1, 4, "NORTH")
+    beefy_robot.move
+    beefy_robot.move
+    assert_equal beefy_robot.report, "Beefy Robot is not on the Board"
   end
 
   def test_cannot_place_off_board
-    refute beefy_robot.place(5, 4, "NORTH")
+    beefy_robot.place(5, 4, "NORTH")
+    assert_equal beefy_robot.report, "Beefy Robot is not on the Board"
   end
 
   def test_continue_to_next_valid_position
-    assert beefy_robot.place(4,4,"NORTH")
-    refute beefy_robot.move
-    assert beefy_robot.place(4,4,"NORTH")
+    beefy_robot.place(4,4,"NORTH")
+    beefy_robot.move
+    assert_equal beefy_robot.report, "Beefy Robot is not on the Board"
+    beefy_robot.place(4,4,"NORTH")
+    assert_equal beefy_robot.report, [4,4,"NORTH"]
   end
 
   def test_can_move_back_onto_table
-    assert beefy_robot.place(0, 0, "SOUTH")
-    refute beefy_robot.move
-    refute beefy_robot.left
-    refute beefy_robot.move
+    beefy_robot.place(0, 0, "SOUTH")
+    beefy_robot.move
+    beefy_robot.left
+    beefy_robot.move
     assert_equal beefy_robot.report, "Beefy Robot is not on the Board"
-    refute beefy_robot.move
-    refute beefy_robot.left
-    assert beefy_robot.move
+    beefy_robot.move
+    beefy_robot.left
+    beefy_robot.move
     assert_equal beefy_robot.report, [2, 0, "NORTH"]
   end
 

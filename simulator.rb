@@ -2,6 +2,7 @@ require_relative 'beefy_robot'
 
 class Simulator
   attr_reader :beefy_robot
+  DIRECTIONS = ["NORTH", "EAST", "SOUTH", "WEST"]
 
   def initialize
     @beefy_robot = BeefyRobot.new
@@ -19,9 +20,18 @@ class Simulator
         if command_args.count > 2
           @x = command_args[0].to_i
           @y = command_args[1].to_i
-          @direction = command_args[2]
-          beefy_robot.place(@x, @y, @direction)
+          @face = command_args[2]
+          if DIRECTIONS.include?(@face)
+            beefy_robot.place(@x, @y, @face)
+          else
+            "INVALID COMMAND"
+          end
+
+        else
+          "INVALID COMMAND"
         end
+      else
+        "INVALID COMMAND"
       end
     when "MOVE"
       beefy_robot.move
@@ -31,6 +41,8 @@ class Simulator
       beefy_robot.left
     when "REPORT"
       beefy_robot.report
+    else
+      "INVALID COMMAND"
     end
   end
 end
