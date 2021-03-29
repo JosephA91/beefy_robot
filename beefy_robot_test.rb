@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require_relative 'beefy_robot'
+require_relative 'simulator'
 
 class BeefyRobotTest < Minitest::Test
   attr_reader :beefy_robot
@@ -119,6 +120,10 @@ class BeefyRobotTest < Minitest::Test
   def test_can_report_invalid_position
     beefy_robot.place(6,6,"NORTH")
     assert_equal beefy_robot.report, "Beefy is not on the Board"
+  end
+
+  def test_continue_next_valid_position
+    beefy_robot.place(5,5,"NORTH")
   end
 
   def test_example_placement_one
