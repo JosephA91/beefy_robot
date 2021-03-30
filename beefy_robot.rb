@@ -46,7 +46,8 @@ class BeefyRobot
 
   def report
     if self.valid_position?(@x, @y)
-      [@x,@y,direction]
+      "#{@x},#{@y},#{direction}"
+      # [@x,@y,direction]
     else
       "Beefy Robot is not on the Board"
     end unless @position.nil?

@@ -11,17 +11,17 @@ class SimulatorTest < Minitest::Test
   end
 
   def test_can_evaluate_valid_input
-    simulator.evaluate("PLACE 0,0,NORTH")
-    assert_equal simulator.evaluate("REPORT"), [0,0,"NORTH"]
+    simulator.evaluate("PLACE 0,0,NORTH"
+    assert_equal simulator.evaluate("REPORT"), "0,0,NORTH"
 
     simulator.evaluate("MOVE")
-    assert_equal simulator.evaluate("REPORT"), [0,1,"NORTH"]
+    assert_equal simulator.evaluate("REPORT"), "0,1,NORTH"
 
     simulator.evaluate("RIGHT")
-    assert_equal simulator.evaluate("REPORT"), [0,1,"EAST"]
+    assert_equal simulator.evaluate("REPORT"), "0,1,EAST"
 
     simulator.evaluate("LEFT")
-    assert_equal simulator.evaluate("REPORT"), [0,1,"NORTH"]
+    assert_equal simulator.evaluate("REPORT"), "0,1,NORTH"
   end
 
   def test_cannot_evaluate_invalid_input
@@ -35,30 +35,30 @@ class SimulatorTest < Minitest::Test
 
   def test_can_execute_place_command
     simulator.evaluate("PLACE 0,0,NORTH")
-    assert_equal simulator.evaluate("REPORT"), [0,0,"NORTH"]
+    assert_equal simulator.evaluate("REPORT"), "0,0,NORTH"
   end
 
   def test_can_execute_move_command
     simulator.evaluate("PLACE 0,0,NORTH")
     simulator.evaluate("MOVE")
-    assert_equal simulator.evaluate("REPORT"), [0,1,"NORTH"]
+    assert_equal simulator.evaluate("REPORT"), "0,1,NORTH"
   end
 
   def test_can_execute_right_command
     simulator.evaluate("PLACE 0,0,NORTH")
     simulator.evaluate("RIGHT")
-    assert_equal simulator.evaluate("REPORT"), [0,0,"EAST"]
+    assert_equal simulator.evaluate("REPORT"), "0,0,EAST"
   end
 
   def test_can_execute_left_command
     simulator.evaluate("PLACE 0,0,NORTH")
     simulator.evaluate("LEFT")
-    assert_equal simulator.evaluate("REPORT"), [0,0,"WEST"]
+    assert_equal simulator.evaluate("REPORT"), "0,0,WEST"
   end
 
   def test_can_execute_report_command
     simulator.evaluate("PLACE 1,1,WEST")
-    assert_equal simulator.evaluate("REPORT"), [1,1,"WEST"]
+    assert_equal simulator.evaluate("REPORT"), "1,1,WEST"
   end
 
   def test_can_execute_multiple_sequence
@@ -66,7 +66,7 @@ class SimulatorTest < Minitest::Test
     simulator.evaluate("RIGHT")
     simulator.evaluate("MOVE")
     simulator.evaluate("MOVE")
-    assert_equal simulator.evaluate("REPORT"), [2,0,"EAST"]
+    assert_equal simulator.evaluate("REPORT"), "2,0,EAST"
   end
 
   def test_beefy_robot_and_simulator_comparison_one

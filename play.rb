@@ -28,7 +28,8 @@ while command
     command = gets.chomp
   else
     feedback = simulator.evaluate(command)
-    puts feedback if feedback
+    print feedback if feedback
+    puts ""
     command = gets.chomp
   end
 end
