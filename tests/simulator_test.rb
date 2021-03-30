@@ -11,7 +11,7 @@ class SimulatorTest < Minitest::Test
   end
 
   def test_can_evaluate_valid_input
-    simulator.evaluate("PLACE 0,0,NORTH"
+    simulator.evaluate("PLACE 0,0,NORTH")
     assert_equal simulator.evaluate("REPORT"), "0,0,NORTH"
 
     simulator.evaluate("MOVE")

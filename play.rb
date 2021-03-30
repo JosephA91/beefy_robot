@@ -1,5 +1,5 @@
 require_relative 'simulator'
-require_relative 'beefy_robot'
+
 steps = [
   "# STEP 1: To place Beefy use: PLACE X,Y,NORTH|SOUTH|EAST|WEST",
   "# Example: PLACE 0,0,NORTH",
