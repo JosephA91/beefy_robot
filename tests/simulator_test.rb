@@ -98,4 +98,43 @@ class SimulatorTest < Minitest::Test
     simulator.evaluate("MOVE")
     assert_equal beefy_robot.report, simulator.evaluate("REPORT")
   end
+
+  def test_beefy_robot_cannot_pass_placed_object
+    simulator.evaluate("PLACE 0,0,EAST")
+    simulator.evaluate("PLACE_OBJECT")
+    simulator.evaluate("MOVE")
+    assert_equal simulator.evaluate("REPORT"), "0,0,EAST"
+  end
+
+  def test_beefy_robot_can_go_around_placed_object
+    simulator.evaluate("PLACE 0,0,EAST")
+    simulator.evaluate("PLACE_OBJECT")
+    simulator.evaluate("LEFT")
+    simulator.evaluate("MOVE")
+    assert_equal simulator.evaluate("REPORT"), "0,1,NORTH"
+  end
+
+  def test_beefy_robot_cannot_pass_previously_placed_object
+    simulator.evaluate("PLACE 0,0,EAST")
+    simulator.evaluate("PLACE_OBJECT")
+    simulator.evaluate("MOVE")
+    simulator.evaluate("PLACE 0,0,EAST")
+    simulator.evaluate("MOVE")
+    assert_equal simulator.evaluate("REPORT"), "0,0,EAST"
+  end
+
+  def test_beefy_cannot_be_placed_on_top_of_previously_placed_object
+    simulator.evaluate("PLACE 0,0,EAST")
+    simulator.evaluate("PLACE_OBJECT")
+    simulator.evaluate("PLACE 1,0,EAST")
+    assert_equal simulator.evaluate("REPORT"), "0,0,EAST"
+  end
+
+  def test_beefy_robot_can_be_placed_in_front_of_previously_placed_object
+    simulator.evaluate("PLACE 0,0,EAST")
+    simulator.evaluate("PLACE_OBJECT")
+    simulator.evaluate("PLACE 2,0,EAST")
+    simulator.evaluate("MOVE")
+    assert_equal simulator.evaluate("REPORT"), "3,0,EAST"
+  end
 end
