@@ -34,10 +34,6 @@ class BeefyRobot
     end
   end
 
-  def robots_collection
-    @robots_collection
-  end
-
   def current_position(x,y)
     @position = { x: x, y: y, face: direction }
   end
