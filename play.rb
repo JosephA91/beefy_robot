@@ -3,7 +3,7 @@ require_relative 'simulator'
 steps = [
   "# STEP 1: To place Beefy use: PLACE X,Y,NORTH|SOUTH|EAST|WEST",
   "# Example: PLACE 0,0,NORTH",
-  "# Step 2: To Drive Beefy use either: MOVE, RIGHT, LEFT or REPORT",
+  "# Step 2: To Drive Beefy use either: MOVE, RIGHT, LEFT, PLACE_OBJECT or REPORT",
   "# Step 3: To exit use: QUIT",
 ]
 
@@ -22,7 +22,7 @@ while command
   if command.downcase.eql?("quit")
     puts "# Thank you for playing with Beefy"
     exit
-  elsif command.downcase.eql?("move") or command.downcase.eql?("left") or command.downcase.eql?("right")
+  elsif command.downcase.eql?("place_object") or command.downcase.eql?("move") or command.downcase.eql?("left") or command.downcase.eql?("right")
     simulator.evaluate(command)
     puts ""
     command = gets.chomp

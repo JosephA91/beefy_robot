@@ -9,13 +9,12 @@ class Simulator
   end
 
   def evaluate(input)
-    commands = ["PLACE", "MOVE", "RIGHT", "LEFT", "REPORT"]
     command = input.upcase.delete("\r|\n")
     command_split = command.split(" ")
 
     case command_split[0]
     when "PLACE"
-      if command_split[0].eql?(commands[0]) && command_split.count > 1
+      if command_split[0].eql?("PLACE") && command_split.count > 1
         command_args = command_split[1].split(/,/).reject(&:empty?)
         if command_args.count > 2
           @x = command_args[0].to_i
@@ -32,6 +31,8 @@ class Simulator
       else
         "INVALID COMMAND"
       end
+    when "PLACE_OBJECT"
+      beefy_robot.place_object
     when "MOVE"
       beefy_robot.move
     when "RIGHT"
